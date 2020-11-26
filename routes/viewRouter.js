@@ -7,5 +7,4 @@ router
     .get( '/login', viewController.login )
     .get( '/register', viewController.register )
     .get('/', viewController.home )
-
 module.exports = router;
