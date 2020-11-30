@@ -36,10 +36,15 @@ exports.register = async ( req, res ) => {
     
 }
 
-exports.login = async( req, res, next ) => {
+exports.login = ( req, res, next ) => {
   passport.authenticate('local', {
       successRedirect: '/',
       failureRedirect:'/register',
       failureFlash:false
   })(req,res,next)
+}
+
+exports.logout = (req, res ) => {
+    req.logout();
+    res.render('/login')
 }
