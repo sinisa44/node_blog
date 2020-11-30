@@ -22,8 +22,10 @@ app.locals.pretty = true;
 
 //body parser 
 app.use(bodyParser.json());
+app.use(express.urlencoded({extended : false}));
 //set public folder visible
 app.use(express.static( path.join( __dirname, 'public') ) );
+
 
 //session and passport middleware
 app.use(passport.initialize());

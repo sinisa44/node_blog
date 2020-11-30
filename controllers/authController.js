@@ -11,6 +11,8 @@ exports.register = async ( req, res ) => {
 
     const {username, password, email} = req.body;
 
+    console.log(req.body);
+
     if( !username  || !password || !email ) {
         res.status(422).json({
             status:"fail",
@@ -23,10 +25,7 @@ exports.register = async ( req, res ) => {
         const newUser = new User( req.body );
         newUser.password = bcrypt.hashSync(newUser.password, 10);
         await newUser.save();
-        res.status(200).json({
-            status:'success',
-            newUser
-        })
+        res.redirect('/login')
 
     } catch (error) {
         res.status(400).json({
