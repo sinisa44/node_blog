@@ -10,39 +10,42 @@ const database = require('./../../../utils/database/connection' );
 database.database();
 
 const seed = async () => {
+    let images = [];
+    let categories = [];
     let posts = []
-    for(i = 0; i < 1; i++ ) {
+
+    for(i = 0; i < Math.floor( Math.random() * 6 ) + 1; i++ ) {
+        let image = faker.image.imageUrl();
+        let category = faker.lorem.word();
+        
+        images.push(image)
+        categories.push(category)
+    }
+
+
+    for(i = 0; i < 10; i++ ) {
 
         let newPost = {
             title: faker.name.title(),
             content: faker.lorem.paragraphs(),
-            author: faker.name.firstName()
+            author: faker.name.firstName(),
+            category:categories,
+            images:images
          }
+         posts.push(newPost)
 
-         let images = [];
-
-         for(i = 0; i < Math.floor( Math.random() * 6 ) + 1; i++ ) {
-             let image = faker.image.imageUrl();
-
-             images.push(image)
-         }
-
-        //  newPost.category.push( faker.lorem.slug );
-         newPost.image.push(images);
-
-        //  posts.push(newPost)
-         console.log(newPost);
         }
-    // try {
-    //     await Post.insertMany(posts);
-    //     console.log('database seed');
-    //     process.exit();
-    // } catch (error) {
-    //     console.log( error);
-    //     process.exit()
-    // }
 
- 
+        try {
+            await Post.insertMany( posts );
+            console.log('Database insert ');
+            process.exit();
+        } catch (error) {
+            console.log(error);
+            process.exit();
+        }
 }
 
-seed();
+
+
+// seed();
