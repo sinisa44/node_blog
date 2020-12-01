@@ -5,7 +5,12 @@ const userRouter = require('./routes/userRouter');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const passport = require('passport');
+const dotenv = require('dotenv');
+
 const app = express();
+
+//dotenv config
+dotenv.config({path:path.join(__dirname, './config.env')});
 
 //passport config
 require('./utils/passport')(passport)
@@ -15,7 +20,6 @@ if( process.env.ENV_TYPE === 'DEVELOPMENT') {
 }
 
 //Add view engine PUG
-
 app.set('view engine', 'pug')
 app.set('views', path.join( __dirname, 'views' ) )
 app.locals.pretty = true;
